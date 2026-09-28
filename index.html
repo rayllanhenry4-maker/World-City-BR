@@ -1,0 +1,1441 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World City BR — Servidor Minecraft</title>
+<meta name="description" content="World City BR — Servidor Minecraft Survival com economia, construção, eventos e comunidade ativa. Entre no Discord e jogue agora!">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<style>
+:root {
+  --bg-primary: #0f1117;
+  --bg-secondary: #161b22;
+  --bg-card: rgba(22, 27, 34, 0.75);
+  --bg-glass: rgba(255, 255, 255, 0.04);
+  --border-glass: rgba(255, 255, 255, 0.08);
+  --text-primary: #f0f6fc;
+  --text-secondary: #8b949e;
+  --text-muted: #6e7681;
+  --accent-green: #10B981;
+  --accent-green-glow: rgba(16, 185, 129, 0.35);
+  --accent-discord: #5865F2;
+  --accent-discord-glow: rgba(88, 101, 242, 0.4);
+  --accent-gold: #F59E0B;
+  --accent-gold-glow: rgba(245, 158, 11, 0.35);
+  --accent-tiktok: #00f2ea;
+  --accent-tiktok-pink: #ff0050;
+  --accent-red: #ef4444;
+  --accent-red-glow: rgba(239, 68, 68, 0.35);
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --shadow-card: 0 8px 32px rgba(0, 0, 0, 0.4);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-display: 'Outfit', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  top: -20%;
+  left: -10%;
+  width: 50%;
+  height: 50%;
+  background: radial-gradient(ellipse, rgba(16, 185, 129, 0.08) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  bottom: -15%;
+  right: -10%;
+  width: 45%;
+  height: 45%;
+  background: radial-gradient(ellipse, rgba(88, 101, 242, 0.07) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+ul {
+  list-style: none;
+}
+
+/* ===== HEADER ===== */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  background: rgba(15, 17, 23, 0.75);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border-glass);
+  transition: background var(--transition);
+}
+
+.nav-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.25rem;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  flex-shrink: 0;
+}
+
+.logo-icon {
+  width: 36px;
+  height: 36px;
+  background: linear-gradient(135deg, var(--accent-green), #059669);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  box-shadow: 0 0 16px var(--accent-green-glow);
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-links a {
+  padding: 8px 14px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  border-radius: var(--radius-sm);
+  transition: color var(--transition), background var(--transition);
+}
+
+.nav-links a:hover {
+  color: var(--text-primary);
+  background: var(--bg-glass);
+}
+
+.nav-cta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 18px;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: var(--radius-md);
+  border: none;
+  cursor: pointer;
+  transition: all var(--transition);
+  white-space: nowrap;
+}
+
+.btn-discord {
+  background: var(--accent-discord);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--accent-discord-glow);
+}
+
+.btn-discord:hover {
+  background: #4752c4;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--accent-discord-glow);
+}
+
+.btn-tiktok {
+  background: linear-gradient(135deg, #00f2ea 0%, #ff0050 100%);
+  color: #fff;
+  box-shadow: 0 4px 16px rgba(0, 242, 234, 0.25);
+}
+
+.btn-tiktok:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(255, 0, 80, 0.35);
+  filter: brightness(1.08);
+}
+
+.btn-primary {
+  background: var(--accent-green);
+  color: #fff;
+  box-shadow: 0 4px 16px var(--accent-green-glow);
+}
+
+.btn-primary:hover {
+  background: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px var(--accent-green-glow);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-glass);
+}
+
+.btn-outline:hover {
+  background: var(--bg-glass);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+.btn-copy {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 8px 14px;
+  font-size: 0.85rem;
+  flex-shrink: 0;
+}
+
+.btn-copy:hover {
+  background: rgba(16, 185, 129, 0.25);
+  box-shadow: 0 0 12px var(--accent-green-glow);
+}
+
+.btn-copy.copied {
+  background: rgba(16, 185, 129, 0.3);
+  color: #fff;
+}
+
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--text-primary);
+  font-size: 1.4rem;
+  cursor: pointer;
+  padding: 8px;
+}
+
+/* ===== HERO ===== */
+.hero {
+  position: relative;
+  z-index: 1;
+  padding: 140px 24px 80px;
+  max-width: 1200px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.server-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(16, 185, 129, 0.12);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  padding: 6px 14px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--accent-green);
+  margin-bottom: 28px;
+  transition: all var(--transition);
+}
+
+.server-status.offline {
+  background: rgba(239, 68, 68, 0.12);
+  border-color: rgba(239, 68, 68, 0.3);
+  color: var(--accent-red);
+}
+
+.server-status.loading {
+  background: rgba(245, 158, 11, 0.12);
+  border-color: rgba(245, 158, 11, 0.3);
+  color: var(--accent-gold);
+}
+
+.server-status.error {
+  background: rgba(139, 148, 158, 0.12);
+  border-color: rgba(139, 148, 158, 0.3);
+  color: var(--text-secondary);
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent-green);
+  border-radius: 50%;
+  box-shadow: 0 0 8px var(--accent-green);
+  animation: pulse 2s infinite;
+  flex-shrink: 0;
+}
+
+.server-status.offline .status-dot {
+  background: var(--accent-red);
+  box-shadow: 0 0 8px var(--accent-red);
+  animation: none;
+}
+
+.server-status.loading .status-dot {
+  background: var(--accent-gold);
+  box-shadow: 0 0 8px var(--accent-gold);
+  animation: pulse 1s infinite;
+}
+
+.server-status.error .status-dot {
+  background: var(--text-muted);
+  box-shadow: none;
+  animation: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.9); }
+}
+
+.status-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-players {
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+.hero h1 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  margin-bottom: 18px;
+  background: linear-gradient(135deg, #fff 0%, #a7f3d0 50%, var(--accent-green) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.hero-tagline {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: var(--text-secondary);
+  max-width: 620px;
+  margin: 0 auto 36px;
+  line-height: 1.7;
+}
+
+.hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
+  margin-bottom: 40px;
+}
+
+.hero-ctas .btn {
+  padding: 14px 28px;
+  font-size: 1rem;
+}
+
+/* ===== COPY BOXES (compact) ===== */
+.copy-boxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  max-width: 680px;
+  margin: 0 auto;
+}
+
+.copy-box {
+  flex: 1 1 260px;
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.copy-box:hover {
+  border-color: rgba(16, 185, 129, 0.35);
+  transform: translateY(-2px);
+}
+
+.copy-box-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--text-muted);
+  line-height: 1.2;
+}
+
+.copy-box-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.copy-box-value {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  word-break: break-all;
+  line-height: 1.35;
+  text-align: left;
+  flex: 1;
+  min-width: 0;
+}
+
+/* ===== SECTIONS ===== */
+section {
+  position: relative;
+  z-index: 1;
+  padding: 80px 24px;
+}
+
+.section-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.section-header h2 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: -0.02em;
+  margin-bottom: 12px;
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  font-size: 1.05rem;
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+/* ===== ABOUT ===== */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.about-content h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 16px;
+  color: var(--accent-green);
+}
+
+.about-content p {
+  color: var(--text-secondary);
+  margin-bottom: 16px;
+  line-height: 1.75;
+}
+
+.values-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.value-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 16px 18px;
+  transition: border-color var(--transition), transform var(--transition);
+}
+
+.value-item:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateX(4px);
+}
+
+.value-icon {
+  width: 40px;
+  height: 40px;
+  min-width: 40px;
+  background: rgba(16, 185, 129, 0.12);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-green);
+  font-size: 1.1rem;
+}
+
+.value-text strong {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 600;
+  margin-bottom: 2px;
+}
+
+.value-text span {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.about-visual {
+  background: var(--bg-card);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 40px 32px;
+  text-align: center;
+  box-shadow: var(--shadow-card);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-visual::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle at 30% 30%, rgba(16, 185, 129, 0.1), transparent 50%);
+  pointer-events: none;
+}
+
+.about-visual .big-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 20px var(--accent-green-glow));
+}
+
+.about-visual h4 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.about-visual p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+}
+
+/* ===== FEATURES ===== */
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+.feature-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-lg);
+  padding: 28px 24px;
+  transition: all var(--transition);
+  box-shadow: var(--shadow-card);
+}
+
+.feature-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(16, 185, 129, 0.35);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-green-glow);
+}
+
+.feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+}
+
+.feature-icon.green {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+}
+
+.feature-icon.gold {
+  background: rgba(245, 158, 11, 0.15);
+  color: var(--accent-gold);
+}
+
+.feature-icon.blue {
+  background: rgba(88, 101, 242, 0.15);
+  color: var(--accent-discord);
+}
+
+.feature-icon.pink {
+  background: rgba(255, 0, 80, 0.12);
+  color: #ff6b9d;
+}
+
+.feature-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.15rem;
+  margin-bottom: 10px;
+}
+
+.feature-card p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+/* ===== HOW TO JOIN ===== */
+.join-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 28px;
+}
+
+.join-card {
+  background: var(--bg-card);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-xl);
+  padding: 32px 28px;
+  box-shadow: var(--shadow-card);
+  transition: border-color var(--transition);
+}
+
+.join-card:hover {
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+.join-card-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+}
+
+.join-card-header .icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+}
+
+.join-card.java .icon-wrap {
+  background: rgba(16, 185, 129, 0.15);
+  color: var(--accent-green);
+}
+
+.join-card.bedrock .icon-wrap {
+  background: rgba(88, 101, 242, 0.15);
+  color: var(--accent-discord);
+}
+
+.join-card h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.join-card .edition-label {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.join-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.step {
+  display: flex;
+  gap: 14px;
+  align-items: flex-start;
+}
+
+.step-num {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.85rem;
+  color: var(--accent-green);
+}
+
+.step p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  padding-top: 3px;
+}
+
+.step code {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--accent-green);
+  padding: 2px 8px;
+  border-radius: 6px;
+  font-family: 'Courier New', monospace;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.join-copy-area {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.join-copy-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(0, 0, 0, 0.25);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+}
+
+.join-copy-row span {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.95rem;
+  word-break: break-all;
+}
+
+/* ===== FOOTER ===== */
+.footer {
+  position: relative;
+  z-index: 1;
+  border-top: 1px solid var(--border-glass);
+  padding: 48px 24px 32px;
+  background: rgba(15, 17, 23, 0.9);
+}
+
+.footer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28px;
+  text-align: center;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 1.2rem;
+}
+
+.footer-socials {
+  display: flex;
+  gap: 14px;
+}
+
+.social-link {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  transition: all var(--transition);
+  border: 1px solid var(--border-glass);
+}
+
+.social-link.discord {
+  background: rgba(88, 101, 242, 0.12);
+  color: var(--accent-discord);
+}
+
+.social-link.discord:hover {
+  background: var(--accent-discord);
+  color: #fff;
+  box-shadow: 0 0 20px var(--accent-discord-glow);
+  transform: translateY(-3px);
+}
+
+.social-link.tiktok {
+  background: rgba(0, 242, 234, 0.08);
+  color: var(--accent-tiktok);
+}
+
+.social-link.tiktok:hover {
+  background: linear-gradient(135deg, #00f2ea, #ff0050);
+  color: #fff;
+  box-shadow: 0 0 20px rgba(0, 242, 234, 0.3);
+  transform: translateY(-3px);
+}
+
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 20px;
+}
+
+.footer-links a {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  transition: color var(--transition);
+}
+
+.footer-links a:hover {
+  color: var(--accent-green);
+}
+
+.footer-disclaimer {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  max-width: 520px;
+  line-height: 1.6;
+}
+
+.footer-copy {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.back-to-top {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-top: 8px;
+  transition: color var(--transition);
+}
+
+.back-to-top:hover {
+  color: var(--accent-green);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+  }
+  .about-visual {
+    order: -1;
+  }
+  .join-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav-links {
+    display: none;
+  }
+  .nav-cta .btn span {
+    display: none;
+  }
+  .nav-cta .btn {
+    padding: 10px 14px;
+  }
+  .mobile-toggle {
+    display: block;
+  }
+  .nav-links.open {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 72px;
+    left: 0;
+    right: 0;
+    background: rgba(15, 17, 23, 0.95);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border-glass);
+    padding: 16px 24px 24px;
+    gap: 4px;
+  }
+  .nav-links.open a {
+    padding: 12px 16px;
+    font-size: 1rem;
+  }
+  .hero {
+    padding: 120px 20px 60px;
+  }
+  .hero-ctas {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-ctas .btn {
+    width: 100%;
+  }
+  .copy-boxes {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .copy-box {
+    flex: none;
+    width: 100%;
+    padding: 12px 14px;
+    gap: 6px;
+  }
+  .copy-box-value {
+    font-size: 0.9rem;
+  }
+  .btn-copy {
+    padding: 7px 12px;
+    font-size: 0.8rem;
+  }
+  section {
+    padding: 60px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .nav-container {
+    padding: 0 16px;
+  }
+  .logo span {
+    font-size: 1.05rem;
+  }
+  .copy-box-row {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .copy-box-value {
+    flex: 1 1 100%;
+    font-size: 0.88rem;
+  }
+  .btn-copy {
+    width: 100%;
+  }
+  .join-copy-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .join-copy-row .btn-copy {
+    width: 100%;
+  }
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="header">
+  <nav class="nav-container">
+    <a href="#home" class="logo">
+      <div class="logo-icon"><i class="fas fa-cube"></i></div>
+      <span>World City BR</span>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#home">Início</a>
+      <a href="#about">Sobre</a>
+      <a href="#features">Destaques</a>
+      <a href="#how-to-join">Como Entrar</a>
+    </div>
+
+    <div class="nav-cta">
+      <a href="https://discord.gg/4dcQrg8BJ" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+        <i class="fab fa-discord"></i> <span>Discord</span>
+      </a>
+      <a href="https://tiktok.com/@world_city_br" target="_blank" rel="noopener noreferrer" class="btn btn-tiktok">
+        <i class="fab fa-tiktok"></i> <span>TikTok</span>
+      </a>
+    </div>
+
+    <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+</header>
+
+<main>
+  <!-- HERO -->
+  <section class="hero" id="home">
+    <div class="server-status loading" id="serverStatus" role="status" aria-live="polite">
+      <span class="status-dot"></span>
+      <span class="status-text" id="statusText">Verificando status...</span>
+    </div>
+
+    <h1>Sua Nova Aventura Começa Aqui em World City BR</h1>
+    <p class="hero-tagline">
+      Um servidor Survival brasileiro com economia equilibrada, construções incríveis, eventos semanais e uma comunidade acolhedora. Junte-se a nós no Discord e no TikTok!
+    </p>
+
+    <div class="hero-ctas">
+      <a href="https://discord.gg/4dcQrg8BJ" target="_blank" rel="noopener noreferrer" class="btn btn-discord">
+        <i class="fab fa-discord"></i> Entrar no Discord
+      </a>
+      <a href="https://tiktok.com/@world_city_br" target="_blank" rel="noopener noreferrer" class="btn btn-tiktok">
+        <i class="fab fa-tiktok"></i> Siga no TikTok
+      </a>
+    </div>
+
+    <div class="copy-boxes">
+      <div class="copy-box">
+        <span class="copy-box-label">IP do Servidor (Java & Bedrock)</span>
+        <div class="copy-box-row">
+          <span class="copy-box-value" id="serverIp">World_City_BR.aternos.me</span>
+          <button class="btn btn-copy" data-copy="World_City_BR.aternos.me" aria-label="Copiar IP">
+            <i class="fas fa-copy"></i> Copiar IP
+          </button>
+        </div>
+      </div>
+      <div class="copy-box">
+        <span class="copy-box-label">Porta Bedrock</span>
+        <div class="copy-box-row">
+          <span class="copy-box-value" id="serverPort">38753</span>
+          <button class="btn btn-copy" data-copy="38753" aria-label="Copiar Porta">
+            <i class="fas fa-copy"></i> Copiar Porta
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Sobre o World City BR</h2>
+        <p>Mais do que um servidor — uma comunidade onde amizade e aventura caminham juntas.</p>
+      </div>
+
+      <div class="about-grid">
+        <div class="about-content">
+          <h3>Nossa Visão</h3>
+          <p>
+            O World City BR nasceu com o objetivo de oferecer um ambiente Survival autêntico, divertido e seguro para jogadores brasileiros. Aqui você encontra liberdade para construir, negociar e explorar sem abrir mão de uma moderação presente e justa.
+          </p>
+          <p>
+            Valorizamos o fair play, o respeito mútuo e a diversão genuína. Seja você iniciante ou veterano, há espaço para todos crescerem juntos.
+          </p>
+
+          <div class="values-list">
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-users"></i></div>
+              <div class="value-text">
+                <strong>Comunidade Amigável</strong>
+                <span>Jogadores acolhedores e um Discord sempre ativo.</span>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-shield-alt"></i></div>
+              <div class="value-text">
+                <strong>Moderação Ativa</strong>
+                <span>Staff dedicada para garantir um ambiente seguro e justo.</span>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-balance-scale"></i></div>
+              <div class="value-text">
+                <strong>Fair Play</strong>
+                <span>Regras claras e economia equilibrada para todos.</span>
+              </div>
+            </div>
+            <div class="value-item">
+              <div class="value-icon"><i class="fas fa-gamepad"></i></div>
+              <div class="value-text">
+                <strong>Diversão em Primeiro Lugar</strong>
+                <span>Eventos, mini-games e liberdade criativa o tempo todo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="about-visual">
+          <div class="big-icon">🏙️</div>
+          <h4>World City BR</h4>
+          <p>Construa sua cidade, faça amigos e deixe sua marca no servidor. A próxima grande aventura espera por você.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section id="features">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Destaques do Servidor</h2>
+        <p>Tudo o que você precisa para uma experiência Survival completa e envolvente.</p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon green"><i class="fas fa-coins"></i></div>
+          <h3>🗡️ Survival & Economia</h3>
+          <p>Economia balanceada com lojas de jogadores, sistema de proteção de terrenos e recompensas por progresso. Negocie, acumule e evolua no seu ritmo.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon gold"><i class="fas fa-hammer"></i></div>
+          <h3>🏗️ Construção & Criatividade</h3>
+          <p>Áreas dedicadas para mostrar suas construções e total liberdade criativa. Transforme o mundo com sua imaginação e inspire a comunidade.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon blue"><i class="fas fa-trophy"></i></div>
+          <h3>🎮 Eventos & Mini-games</h3>
+          <p>Eventos semanais, parkour, competições e recompensas exclusivas. Sempre tem algo novo acontecendo para manter a diversão em alta.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon pink"><i class="fas fa-user-shield"></i></div>
+          <h3>🛡️ Staff Ativa</h3>
+          <p>Equipe amigável e presente, pronta para ajudar e garantir que todos joguem em um ambiente seguro, justo e acolhedor.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO JOIN -->
+  <section id="how-to-join">
+    <div class="section-inner">
+      <div class="section-header">
+        <h2>Como Entrar no Servidor</h2>
+        <p>Siga os passos abaixo de acordo com a sua edição do Minecraft.</p>
+      </div>
+
+      <div class="join-grid">
+        <div class="join-card java">
+          <div class="join-card-header">
+            <div class="icon-wrap"><i class="fas fa-desktop"></i></div>
+            <div>
+              <h3>Java Edition</h3>
+              <span class="edition-label">PC / Mac / Linux</span>
+            </div>
+          </div>
+          <div class="join-steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <p>Abra o Minecraft Java Edition e vá em <strong>Multijogador</strong>.</p>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <p>Clique em <strong>Adicionar Servidor</strong>.</p>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <p>Cole o IP: <code>World_City_BR.aternos.me</code></p>
+            </div>
+            <div class="step">
+              <span class="step-num">4</span>
+              <p>A porta padrão <strong>25565</strong> é aplicada automaticamente. Salve e conecte!</p>
+            </div>
+          </div>
+          <div class="join-copy-area">
+            <div class="join-copy-row">
+              <span>World_City_BR.aternos.me</span>
+              <button class="btn btn-copy" data-copy="World_City_BR.aternos.me">
+                <i class="fas fa-copy"></i> Copiar IP
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="join-card bedrock">
+          <div class="join-card-header">
+            <div class="icon-wrap"><i class="fas fa-mobile-alt"></i></div>
+            <div>
+              <h3>Bedrock Edition</h3>
+              <span class="edition-label">PE / Consoles / Windows</span>
+            </div>
+          </div>
+          <div class="join-steps">
+            <div class="step">
+              <span class="step-num">1</span>
+              <p>Abra o Minecraft Bedrock e vá em <strong>Servidores</strong> ou <strong>Adicionar Servidor</strong>.</p>
+            </div>
+            <div class="step">
+              <span class="step-num">2</span>
+              <p>No campo de endereço, cole: <code>World_City_BR.aternos.me</code></p>
+            </div>
+            <div class="step">
+              <span class="step-num">3</span>
+              <p>No campo de porta, digite: <code>38753</code></p>
+            </div>
+            <div class="step">
+              <span class="step-num">4</span>
+              <p>Salve o servidor e clique para conectar. Pronto!</p>
+            </div>
+          </div>
+          <div class="join-copy-area">
+            <div class="join-copy-row">
+              <span>World_City_BR.aternos.me</span>
+              <button class="btn btn-copy" data-copy="World_City_BR.aternos.me">
+                <i class="fas fa-copy"></i> Copiar IP
+              </button>
+            </div>
+            <div class="join-copy-row">
+              <span>38753</span>
+              <button class="btn btn-copy" data-copy="38753">
+                <i class="fas fa-copy"></i> Copiar Porta
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">
+      <div class="logo-icon"><i class="fas fa-cube"></i></div>
+      <span>World City BR</span>
+    </div>
+
+    <div class="footer-socials">
+      <a href="https://discord.gg/4dcQrg8BJ" target="_blank" rel="noopener noreferrer" class="social-link discord" aria-label="Discord">
+        <i class="fab fa-discord"></i>
+      </a>
+      <a href="https://tiktok.com/@world_city_br" target="_blank" rel="noopener noreferrer" class="social-link tiktok" aria-label="TikTok">
+        <i class="fab fa-tiktok"></i>
+      </a>
+    </div>
+
+    <div class="footer-links">
+      <a href="#home">Início</a>
+      <a href="#about">Sobre</a>
+      <a href="#features">Destaques</a>
+      <a href="#how-to-join">Como Entrar</a>
+    </div>
+
+    <p class="footer-disclaimer">
+      Not an official Minecraft product. Not approved by or associated with Mojang or Microsoft.
+    </p>
+
+    <p class="footer-copy">© 2026 World City BR. Todos os direitos reservados.</p>
+
+    <a href="#home" class="back-to-top">
+      <i class="fas fa-arrow-up"></i> Voltar ao topo
+    </a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  // ===== CONFIG =====
+  const SERVER_IP = 'World_City_BR.aternos.me';
+  const BEDROCK_PORT = '38753';
+  const STATUS_API_JAVA = `https://api.mcsrvstat.us/2/${SERVER_IP}`;
+  const STATUS_API_BEDROCK = `https://api.mcsrvstat.us/bedrock/2/\( {SERVER_IP}: \){BEDROCK_PORT}`;
+  const REFRESH_INTERVAL = 60000;
+
+  // ===== MOBILE MENU =====
+  const toggle = document.getElementById('mobileToggle');
+  const navLinks = document.getElementById('navLinks');
+
+  if (toggle && navLinks) {
+    toggle.addEventListener('click', function () {
+      navLinks.classList.toggle('open');
+      const icon = toggle.querySelector('i');
+      if (navLinks.classList.contains('open')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('open');
+        const icon = toggle.querySelector('i');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      });
+    });
+  }
+
+  // ===== COPY TO CLIPBOARD =====
+  document.querySelectorAll('.btn-copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      const text = btn.getAttribute('data-copy');
+      if (!text) return;
+
+      function showSuccess() {
+        const original = btn.innerHTML;
+        btn.classList.add('copied');
+        btn.innerHTML = '<i class="fas fa-check"></i> Copiado!';
+        setTimeout(function () {
+          btn.classList.remove('copied');
+          btn.innerHTML = original;
+        }, 2000);
+      }
+
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(showSuccess).catch(function () {
+          fallbackCopy(text, showSuccess);
+        });
+      } else {
+        fallbackCopy(text, showSuccess);
+      }
+    });
+  });
+
+  function fallbackCopy(text, callback) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+      document.execCommand('copy');
+      callback();
+    } catch (e) {}
+    document.body.removeChild(ta);
+  }
+
+  // ===== REAL SERVER STATUS API =====
+  const statusEl = document.getElementById('serverStatus');
+  const statusTextEl = document.getElementById('statusText');
+
+  function setStatus(state, message) {
+    statusEl.classList.remove('loading', 'offline', 'error');
+    if (state !== 'online') {
+      statusEl.classList.add(state);
+    }
+    statusTextEl.innerHTML = message;
+  }
+
+  async function fetchStatus(url) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 8000);
+
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeout);
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      return await res.json();
+    } catch (err) {
+      clearTimeout(timeout);
+      throw err;
+    }
+  }
+
+  async function updateServerStatus() {
+    setStatus('loading', 'Verificando status...');
+
+    try {
+      let data = null;
+
+      try {
+        data = await fetchStatus(STATUS_API_JAVA);
+        if (!data || !data.online) {
+          data = await fetchStatus(STATUS_API_BEDROCK);
+        }
+      } catch (e) {
+        try {
+          data = await fetchStatus(STATUS_API_BEDROCK);
+        } catch (e2) {
+          throw e2;
+        }
+      }
+
+      if (data && data.online) {
+        const players = data.players || {};
+        const online = typeof players.online === 'number' ? players.online : 0;
+        const max = typeof players.max === 'number' ? players.max : '?';
+        const playersText = max !== '?' 
+          ? `<span class="status-players">• \( {online}/ \){max} jogadores</span>`
+          : `<span class="status-players">• ${online} jogadores</span>`;
+
+        setStatus('online', `Servidor Online ${playersText}`);
+      } else {
+        setStatus('offline', 'Servidor Offline');
+      }
+    } catch (err) {
+      console.warn('Erro ao consultar status do servidor:', err);
+      setStatus('error', 'Status indisponível');
+    }
+  }
+
+  updateServerStatus();
+  setInterval(updateServerStatus, REFRESH_INTERVAL);
+})();
+</script>
+</body>
+</html>
